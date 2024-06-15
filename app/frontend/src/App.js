@@ -1,14 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/HomePage.js';
+import { Route, Switch } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
+import PredictPage from './pages/PredictPage';
+import PredictCustomPage from './pages/PredictCustomPage';
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-            </Routes>
-        </Router>
+        <div>
+            <Navbar />
+            <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/predict" component={PredictPage} />
+                <Route path="/predict-custom" component={PredictCustomPage} />
+            </Switch>
+        </div>
     );
 }
 
