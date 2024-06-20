@@ -11,6 +11,7 @@ import InformationPage from './pages/InformationPage'
 import Button from './components/Button';
 import Message from './components/Message';
 import InputWithButton from './components/InputWithButton';
+import './styles/styles.css';
 
 
 function App() {

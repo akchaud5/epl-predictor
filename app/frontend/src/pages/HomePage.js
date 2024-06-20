@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { fetchData } from '../services/api';
+import Container1 from '../components/Container1';
+import Container from '../components/Container';
+import TeamCustomizationForm from '../components/TeamCustomizationForm';
 
 function HomePage() {
     const [data, setData] = useState(null);
@@ -15,9 +18,11 @@ function HomePage() {
 
     return (
         <div>
-            <h2>Home Page</h2>
-            <button onClick={fetchDataFromBackend}>Fetch Data</button>
-            {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+            <Container1/>
+            <div className="larger-header-div">
+                <h1 className="larger-header">Predicted Best Players per Position</h1>
+            </div>
+            <TeamCustomizationForm/>
         </div>
     );
 }
