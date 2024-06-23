@@ -1,6 +1,6 @@
 import React from 'react';
 import PlayerCard from './PlayerCard';
-import './styles/styles.css';
+import '../styles/styles.css';
 
 const Container = ({ players }) => (
     <div className="container">

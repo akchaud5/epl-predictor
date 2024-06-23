@@ -1,10 +1,14 @@
 import React from 'react';
+import Container1 from "../components/Container1";
+import TeamCustomizationForm from "../components/TeamCustomization";
 
 const AboutPage = () => {
     return (
         <div>
-            <h2>About Us</h2>
-            <p>This is the About page content.</p>
+            <Container1/>
+            <div className="larger-header-div">
+                <h1 className="larger-header">About Me</h1>
+            </div>
         </div>
     );
 }

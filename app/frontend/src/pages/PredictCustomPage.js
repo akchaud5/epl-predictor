@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Container1 from "../components/Container1";
+import TeamCustomizationForm from "../components/TeamCustomization";
 
 function PredictCustomPage() {
     const [customPrediction, setCustomPrediction] = useState(null);
@@ -21,6 +23,11 @@ function PredictCustomPage() {
 
     return (
         <div>
+            <Container1/>
+            <div className="larger-header-div">
+                <h1 className="larger-header">Predicted Best Players per Position</h1>
+            </div>
+            <TeamCustomizationForm/>
             <h1>Predict Custom Page</h1>
             <input
                 type="text"
