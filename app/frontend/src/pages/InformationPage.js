@@ -9,7 +9,6 @@ const InformationPage = () => {
             <div className="larger-header-div">
                 <h1 className="larger-header">Information Page</h1>
             </div>
-            <TeamCustomizationForm/>
         </div>
     );
 }

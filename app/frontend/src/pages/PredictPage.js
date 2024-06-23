@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Container1 from "../components/Container1";
-import TeamCustomizationForm from "../components/TeamCustomization";
+import Container2 from "../components/Container2";
+import PlayerCardContainer from '../components/PlayerCardContainer';
 
 function PredictPage() {
     const [prediction, setPrediction] = useState(null);
@@ -26,17 +26,8 @@ function PredictPage() {
 
     return (
         <div>
-            <Container1/>
-            <div className="larger-header-div">
-                <h1 className="larger-header">Predicted Best Players per Position</h1>
-            </div>
-            <h1>Predict Page</h1>
-            <input
-                type="text"
-                value={inputData}
-                onChange={handleInputChange}
-                placeholder="Enter data for prediction"
-            />
+            <Container2/>
+            <PlayerCardContainer/>
                 <button onClick={handlePredict}>Predict</button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {prediction && <p>Prediction: {prediction}</p>}

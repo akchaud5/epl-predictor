@@ -19,10 +19,6 @@ function HomePage() {
     return (
         <div>
             <Container1/>
-            <div className="larger-header-div">
-                <h1 className="larger-header">Predicted Best Players per Position</h1>
-            </div>
-            <TeamCustomizationForm/>
         </div>
     );
 }
