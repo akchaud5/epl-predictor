@@ -28,9 +28,6 @@ function PredictPage() {
         <div>
             <Container2/>
             <PlayerCardContainer/>
-                <button onClick={handlePredict}>Predict</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {prediction && <p>Prediction: {prediction}</p>}
         </div>
     );
 }

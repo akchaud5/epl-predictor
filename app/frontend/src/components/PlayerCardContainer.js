@@ -1,6 +1,7 @@
 import React from 'react';
 import PlayerCard from './PlayerCard';
 import '../styles/styles.css';
+import axios from "axios";
 
 const topPlayers = [
     { imgSrc: null, playerName: 'Goalkeeper 1' },
@@ -21,6 +22,7 @@ const topPlayers = [
 ];
 
 const PlayerCardContainer = () => {
+
     return (
         <div>
             <div className="larger-header-div">

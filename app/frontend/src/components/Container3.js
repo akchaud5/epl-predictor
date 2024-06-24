@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
+import '../styles/styles.css';
 import axios from 'axios';
-import Container3 from "../components/Container3";
-import TeamCustomizationForm from "../components/TeamCustomization";
 
-function PredictCustomPage() {
+const Container3 = () => {
     const [customPrediction, setCustomPrediction] = useState(null);
     const [customInputData, setCustomInputData] = useState('');
 
@@ -22,14 +21,15 @@ function PredictCustomPage() {
     };
 
     return (
-        <div>
-            <Container3/>
-            <div className="larger-header-div">
-                <h1 className="larger-header">Custom Predicted Best Players</h1>
+        <div className="container1">
+            <div className="header-container1">
+                <h1 className="header-text">Custom Predictions</h1>
+                <p className="description">This page is related to generating the best overall Fantasy Premier League team.</p>
+                <button id="make-predictions-btn" className="view-players-button" onClick={handleCustomPredict}>Predict Custom</button>
+                {customPrediction && <p>Custom Prediction: {customPrediction}</p>}
             </div>
-            <TeamCustomizationForm/>
         </div>
     );
-}
+};
 
-export default PredictCustomPage;
+export default Container3;

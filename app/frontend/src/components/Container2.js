@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/styles.css';
+import axios from 'axios';
 
-const Container2 = () => (
-    <div className="container1">
-        <div className="header-container1">
-            <h1 className="header-text">Premier League Player Performance Predictions</h1>
-            <p className="description">This web app is designed to help you find the best performing players in the English Premier League for your FPL team according to my machine learning model.</p>
-            <form action="/predict" method="post">
-                <button id="make-predictions-btn" className="view-players-button">Make Predictions</button>
-            </form>
+const Container2 = () => {
+    const [inputData, setInputData] = useState('');
+    const [prediction, setPrediction] = useState(null);
+    const [error, setError] = useState(null);
+
+    const handlePredict = () => {
+        setError(null);
+        axios.post('http://localhost:5000/api/predict', { input: inputData })
+            .then(response => {
+                setPrediction(response.data.prediction);
+            })
+            .catch(error => {
+                console.error('There was an error making the prediction!', error);
+                setError('There was an error making the prediction. Please try again.');
+            });
+    };
+
+    return (
+        <div className="container1">
+            <div className="header-container1">
+                <h1 className="header-text">Predictions</h1>
+                <p className="description">This page is related to generating the best overall Fantasy Premier League team.</p>
+                <button id="make-predictions-btn" className="view-players-button" onClick={handlePredict}>Make Predictions</button>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {prediction && <p>Prediction: {prediction}</p>}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default Container2;
