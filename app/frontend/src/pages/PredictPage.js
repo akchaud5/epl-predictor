@@ -8,6 +8,11 @@ function PredictPage() {
     const [inputData, setInputData] = useState('');
     const [error, setError] = useState(null);
 
+    const numGoalkeepers = 2;
+    const numDefenders = 5;
+    const numMidfielders = 5;
+    const numForwards = 3;
+
     const handleInputChange = (event) => {
         setInputData(event.target.value);
     };
@@ -27,7 +32,12 @@ function PredictPage() {
     return (
         <div>
             <Container2/>
-            <PlayerCardContainer/>
+            <PlayerCardContainer
+                numGoalkeepers={numGoalkeepers}
+                numDefenders={numDefenders}
+                numMidfielders={numMidfielders}
+                numForwards={numForwards}
+            />
         </div>
     );
 }

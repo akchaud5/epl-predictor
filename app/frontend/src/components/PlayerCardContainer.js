@@ -1,27 +1,39 @@
 import React from 'react';
 import PlayerCard from './PlayerCard';
 import '../styles/styles.css';
-import axios from "axios";
+
+const playerSilhouette = null;
 
 const topPlayers = [
-    { imgSrc: null, playerName: 'Goalkeeper 1' },
-    { imgSrc: null, playerName: 'Goalkeeper 2' },
-    { imgSrc: null, playerName: 'Defender 1' },
-    { imgSrc: null, playerName: 'Defender 2' },
-    { imgSrc: null, playerName: 'Defender 3' },
-    { imgSrc: null, playerName: 'Defender 4' },
-    { imgSrc: null, playerName: 'Defender 5' },
-    { imgSrc: null, playerName: 'Midfielder 1' },
-    { imgSrc: null, playerName: 'Midfielder 2' },
-    { imgSrc: null, playerName: 'Midfielder 3' },
-    { imgSrc: null, playerName: 'Midfielder 4' },
-    { imgSrc: null, playerName: 'Midfielder 5' },
-    { imgSrc: null, playerName: 'Forward 1' },
-    { imgSrc: null, playerName: 'Forward 2' },
-    { imgSrc: null, playerName: 'Forward 3' }
+    { imgSrc: playerSilhouette, playerName: 'Goalkeeper 1' },
+    { imgSrc: playerSilhouette, playerName: 'Goalkeeper 2' },
+    { imgSrc: playerSilhouette, playerName: 'Defender 1' },
+    { imgSrc: playerSilhouette, playerName: 'Defender 2' },
+    { imgSrc: playerSilhouette, playerName: 'Defender 3' },
+    { imgSrc: playerSilhouette, playerName: 'Defender 4' },
+    { imgSrc: playerSilhouette, playerName: 'Defender 5' },
+    { imgSrc: playerSilhouette, playerName: 'Midfielder 1' },
+    { imgSrc: playerSilhouette, playerName: 'Midfielder 2' },
+    { imgSrc: playerSilhouette, playerName: 'Midfielder 3' },
+    { imgSrc: playerSilhouette, playerName: 'Midfielder 4' },
+    { imgSrc: playerSilhouette, playerName: 'Midfielder 5' },
+    { imgSrc: playerSilhouette, playerName: 'Forward 1' },
+    { imgSrc: playerSilhouette, playerName: 'Forward 2' },
+    { imgSrc: playerSilhouette, playerName: 'Forward 3' }
 ];
 
-const PlayerCardContainer = () => {
+const PlayerCardContainer = ({ numGoalkeepers, numDefenders, numMidfielders, numForwards }) => {
+
+    const generatePlayerCards = (count, position, startIndex) => {
+        return topPlayers.slice(startIndex, startIndex + count).map((player, index) => (
+            <PlayerCard key={index} imgSrc={player.imgSrc} playerName={player.playerName} />
+        ));
+    };
+
+    const goalkeepers = generatePlayerCards(numGoalkeepers, 'Goalkeeper', 0);
+    const defenders = generatePlayerCards(numDefenders, 'Defender', 2);
+    const midfielders = generatePlayerCards(numMidfielders, 'Midfielder', 7);
+    const forwards = generatePlayerCards(numForwards, 'Forward', 12);
 
     return (
         <div>
@@ -30,27 +42,19 @@ const PlayerCardContainer = () => {
             </div>
 
             <div className="container">
-                {topPlayers.slice(0, 2).map((player, index) => (
-                    <PlayerCard key={index} imgSrc={player.imgSrc} playerName={player.playerName} />
-                ))}
+                {goalkeepers}
             </div>
 
             <div className="container">
-                {topPlayers.slice(2, 7).map((player, index) => (
-                    <PlayerCard key={index} imgSrc={player.imgSrc} playerName={player.playerName} />
-                ))}
+                {defenders}
             </div>
 
             <div className="container">
-                {topPlayers.slice(7, 12).map((player, index) => (
-                    <PlayerCard key={index} imgSrc={player.imgSrc} playerName={player.playerName} />
-                ))}
+                {midfielders}
             </div>
 
             <div className="container">
-                {topPlayers.slice(12).map((player, index) => (
-                    <PlayerCard key={index} imgSrc={player.imgSrc} playerName={player.playerName} />
-                ))}
+                {forwards}
             </div>
         </div>
     );
