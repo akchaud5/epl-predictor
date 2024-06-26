@@ -1,11 +1,14 @@
 import React from 'react';
-import Container1 from "../components/Container1";
-import TeamCustomizationForm from "../components/TeamCustomization";
+import Container4 from "../components/Container4";
 
 const InformationPage = () => {
     return (
         <div>
-            <Container1/>
+            <Container4
+                headerText="Information"
+                paragraphText="This page is intended to provide information about the machine learning models and techniques used for this project."
+                buttonText="Read More"
+            />
             <div className="larger-header-div">
                 <h1 className="larger-header">Information Page</h1>
             </div>
