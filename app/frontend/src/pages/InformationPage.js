@@ -1,5 +1,6 @@
 import React from 'react';
 import Container4 from "../components/Container4";
+import InformationContainer from "../components/InformationContainer";
 
 const InformationPage = () => {
     return (
@@ -9,9 +10,10 @@ const InformationPage = () => {
                 paragraphText="This page is intended to provide information about the machine learning models and techniques used for this project."
                 buttonText="Read More"
             />
-            <div className="larger-header-div">
-                <h1 className="larger-header">Information Page</h1>
-            </div>
+            <InformationContainer
+                text={"This will be some relevant information."}
+                buttonText={"Generate Visualization"}
+            />
         </div>
     );
 }

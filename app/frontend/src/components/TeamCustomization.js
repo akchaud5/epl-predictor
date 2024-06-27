@@ -9,12 +9,11 @@ const TeamCustomizationForm = () => {
     const [numForwards, setNumForwards] = useState(2);
 
     const handleInputChange = (setter) => (event) => {
-        setter(event.target.value);
+        setter(Number(event.target.value));
     };
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-
         console.log(`Goalkeepers: ${numGoalkeepers}`);
         console.log(`Defenders: ${numDefenders}`);
         console.log(`Midfielders: ${numMidfielders}`);
