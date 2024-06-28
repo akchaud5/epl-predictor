@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/styles.css';
+import '../styles/information.css';
 import axios from 'axios';
 
 
@@ -17,8 +17,8 @@ const InformationContainer = ({ imageUrl, text, buttonText }) => {
 
     return (
         <div className="information-container">
-            <div className="larger-header-div">
-                <h1 className="larger-header">Information Page</h1>
+            <div className="info-header-div">
+                <h1 className="info-header">Information Page</h1>
             </div>
             <div className="content">
                 <div className="visualization">

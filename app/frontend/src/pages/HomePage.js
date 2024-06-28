@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { fetchData } from '../services/api';
-import Container1 from '../components/Container1';
+import HomeContainer from '../components/HomeContainer';
 
 
 function HomePage() {
@@ -17,7 +17,7 @@ function HomePage() {
 
     return (
         <div>
-            <Container1/>
+            <HomeContainer/>
         </div>
     );
 }

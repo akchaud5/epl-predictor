@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Container2 from "../components/Container2";
+import PredictContainer from "../components/PredictContainer";
 import PlayerCardContainer from '../components/PlayerCardContainer';
 
 function PredictPage() {
@@ -31,7 +31,7 @@ function PredictPage() {
 
     return (
         <div>
-            <Container2/>
+            <PredictContainer/>
             <PlayerCardContainer
                 numGoalkeepers={numGoalkeepers}
                 numDefenders={numDefenders}

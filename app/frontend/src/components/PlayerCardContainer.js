@@ -1,6 +1,6 @@
 import React from 'react';
 import PlayerCard from './PlayerCard';
-import '../styles/styles.css';
+import '../styles/playercard.css';
 
 const playerSilhouette = null;
 
@@ -37,23 +37,23 @@ const PlayerCardContainer = ({ numGoalkeepers, numDefenders, numMidfielders, num
 
     return (
         <div>
-            <div className="larger-header-div">
-                <h1 className="larger-header">Predicted Best Players per Position</h1>
+            <div className="card-header-div">
+                <h1 className="card-header">Predicted Best Players per Position</h1>
             </div>
 
-            <div className="container">
+            <div className="card-container">
                 {goalkeepers}
             </div>
 
-            <div className="container">
+            <div className="card-container">
                 {defenders}
             </div>
 
-            <div className="container">
+            <div className="card-container">
                 {midfielders}
             </div>
 
-            <div className="container">
+            <div className="card-container">
                 {forwards}
             </div>
         </div>

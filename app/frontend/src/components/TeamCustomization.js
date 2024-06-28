@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/styles.css';
+import '../styles/teamcustomization.css';
 import PlayerCardContainer from './PlayerCardContainer';
 
 const TeamCustomizationForm = () => {

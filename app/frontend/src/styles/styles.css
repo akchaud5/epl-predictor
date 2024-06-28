@@ -53,6 +53,19 @@ nav a {
     display: block;
 }
 
+.larger-header-div {
+    text-align: center;
+    padding: 40px;
+    background-color: #000000;
+}
+
+.larger-header {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/*
 .social-icons {
     display: flex;
     align-items: center;
@@ -89,32 +102,6 @@ nav a {
         margin-left: 10px;
     }
 }
-
-.header-container1 {
-    background-color: inherit;
-    padding: 100px;
-    text-align: center;
-    max-width: 55%;
-    margin: 0 auto;
-    color: #fff;
-}
-
-.header-text {
-    font-size: 80px;
-}
-
-.container1 {
-    margin-top: 0;
-    background: url('https://cdn.pixabay.com/photo/2018/05/15/23/02/football-stadium-3404535_1280.jpg') center/cover no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    background-position: center bottom;
-    padding: 20px;
-}
-
 
 .container2 {
     background-color: #000;
@@ -254,91 +241,6 @@ nav a {
     margin-bottom: 20px;
 }
 
-.larger-header-div {
-    text-align: center;
-    padding: 40px;
-    background-color: #000000;
-}
-
-.larger-header {
-    font-size: 40px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.view-players-button {
-    background-color: #800080;
-    border: none;
-    color: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 28px;
-    margin-top: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.view-players-button:hover {
-    background-color: #6a006a; /* Darker shade of purple on hover */
-}
-
-.team-customization-container {
-    text-align: center;
-    padding: 40px;
-    padding-bottom: 0px;
-    background-color: #000000;
-}
-
-.team-customization-header {
-    font-size: 40px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.team-customization-form {
-    max-width: 600px;
-    margin: 0 auto
-}
-
-.team-customization-form .form-group {
-    margin-bottom: 20px;
-}
-
-.team-customization-form label {
-    display: block;
-    font-size: 20px;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
-
-.team-customization-form input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-.team-customization-form button {
-    background-color: #800080;
-    border: none;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.team-customization-form button:hover {
-    background-color: #6a006a; /* Darker shade of purple on hover */
-}
 
 .container-customize {
     display: flex;
@@ -350,22 +252,6 @@ nav a {
     padding-top: 0px;
 }
 
-.information-container {
-    background-color: black;
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.larger-header-div {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.larger-header {
-    color: white;
-}
-
 .content {
     display: flex;
     align-items: center;
@@ -373,43 +259,12 @@ nav a {
     padding: 0 10%;
 }
 
-.visualization {
-    flex: 0 0 30%;
-    padding: 0 10%;
-}
-
-.visualization-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
 .text-and-button {
     flex: 0 0 30%;
     padding: 0 10%;
     text-align: left;
 }
-
-.information-text {
-    margin-bottom: 20px;
-    color: white;
-}
-
-.information-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.information-button:hover {
-    background-color: #0056b3;
-}
-
-
+*/
 /* SETUP for future Javascript Functionality: Hide player containers and visualization containers initially */
 /*.container, .visualization-container {
     display: none;

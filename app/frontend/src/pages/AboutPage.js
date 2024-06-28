@@ -1,10 +1,10 @@
 import React from 'react';
-import Container4 from "../components/Container4";
+import TextContainer from "../components/TextContainer";
 
 const AboutPage = () => {
     return (
         <div>
-            <Container4
+            <TextContainer
                 headerText="About"
                 paragraphText="In case you were wondering who made this web app!"
                 buttonText="Read More"

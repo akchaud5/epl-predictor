@@ -1,0 +1,60 @@
+.information-container {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+
+.info-header-div {
+    text-align: center;
+    padding: 40px;
+    background-color: #000000;
+}
+
+.info-header {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.visualization {
+    flex: 0 0 30%;
+    padding: 0 10%;
+}
+
+.visualization-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.text-and-button {
+    flex: 0 0 30%;
+    padding: 0 10%;
+    text-align: left;
+}
+
+.information-button {
+    align-self: center;
+    background-color: #800080;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.information-text {
+    margin-bottom: 20px;
+    color: white;
+}

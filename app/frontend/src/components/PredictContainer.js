@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import '../styles/styles.css';
+import '../styles/prediction.css';
 import axios from 'axios';
 
-const Container2 = () => {
+const PredictContainer = () => {
     const [inputData, setInputData] = useState('');
     const [prediction, setPrediction] = useState(null);
     const [error, setError] = useState(null);
@@ -20,9 +20,9 @@ const Container2 = () => {
     };
 
     return (
-        <div className="container1">
-            <div className="header-container1">
-                <h1 className="header-text">Predictions</h1>
+        <div className="prediction-container">
+            <div className="prediction-container1">
+                <h1 className="prediction-text">Predictions</h1>
                 <p className="description">This page is related to generating the best overall Fantasy Premier League team.</p>
                 <button id="make-predictions-btn" className="view-players-button" onClick={handlePredict}>Make Predictions</button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -32,4 +32,4 @@ const Container2 = () => {
     );
 };
 
-export default Container2;
+export default PredictContainer;
