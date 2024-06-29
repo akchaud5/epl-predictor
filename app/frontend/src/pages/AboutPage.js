@@ -12,6 +12,21 @@ const AboutPage = () => {
             <div className="larger-header-div">
                 <h1 className="larger-header">About Me</h1>
             </div>
+            <div className="about-container2">
+                <div className="about-picture-container">
+                    <img className="profile-image" src="../assets/mattw.jpg" alt="Profile Picture"/>
+                </div>
+                <div className="about-text-container2">
+                    <h1 className="about-header">Overview</h1>
+                    <p className="about-description">
+                        I am an incoming Computer Science senior at Arizona State University, looking
+                        to further my experience in the industry. My main interests are Software Engineering and and
+                        Artificial Intelligence, specifically related to Machine Learning. I'm a hardworking individual
+                        who is adaptable to many situations and puts in a daily commitment to learning and
+                        improvement.
+                    </p>
+                </div>
+            </div>
         </div>
     );
 }
