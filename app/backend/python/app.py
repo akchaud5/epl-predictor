@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from modules.data_processing import predicts
 
 app = Flask(__name__)
 CORS(app)
@@ -10,9 +11,10 @@ def index():
 
 @app.route('/api/predict', methods=['POST'])
 def predict():
-    input_data = request.json.get('input')
-    prediction = f'Prediction for input "{input_data}"'
-    return jsonify({"prediction": prediction})
+    predictions, predictions_optimized = predicts()
+    print(predictions)
+    return jsonify({"prediction": predictions})
+
 
 @app.route('/api/predict-custom', methods=['POST'])
 def predict_custom():

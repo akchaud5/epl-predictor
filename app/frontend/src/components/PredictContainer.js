@@ -3,13 +3,12 @@ import '../styles/prediction.css';
 import axios from 'axios';
 
 const PredictContainer = () => {
-    const [inputData, setInputData] = useState('');
     const [prediction, setPrediction] = useState(null);
     const [error, setError] = useState(null);
 
     const handlePredict = () => {
         setError(null);
-        axios.post('http://localhost:5000/api/predict', { input: inputData })
+        axios.post('http://localhost:5000/api/predict')
             .then(response => {
                 setPrediction(response.data.prediction);
             })

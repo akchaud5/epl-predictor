@@ -1,7 +1,7 @@
 import os
 import pandas as pd
-from model_training import train_models, evaluate_model, visualize
-from optimizations import linear_optimization, linear_optimization_specific
+from .model_training import train_models, evaluate_model, visualize
+from .optimizations import linear_optimization, linear_optimization_specific
 
 # Function to start the training, visualization, and prediction process
 def predicts():

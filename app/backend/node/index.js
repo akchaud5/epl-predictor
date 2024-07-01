@@ -8,26 +8,18 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Python server URL
 const SERVER_URL = 'http://localhost:5001';
 
-app.get('/api/home', (req, res) => {
-    res.json({ message: 'Welcome to the Home Page!' });
-});
-
-app.get('/api/clicked', (req, res) => {
-    res.json({message: 'Button Clicked!'})
-})
-
 app.post('/api/predict', async (req, res) => {
-    const input = req.body.input;
     try {
-        const response = await axios.post(`${SERVER_URL}/api/predict`, { input });
+        const response = await axios.post(`${SERVER_URL}/api/predict`);
         res.json(response.data);
     } catch (error) {
+        console.error('Error calling Python API:', error);
         res.status(500).json({ error: 'Error calling Python API' });
     }
 });
+
 
 app.post('/api/predict-custom', async (req, res) => {
     const input = req.body.input;
