@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 
-const InformationContainer = ({ imageUrl, text, buttonText }) => {
+const InformationContainer = ({ imageUrl, text, buttonText, targetId }) => {
     const handleButtonClick = () => {
         axios.post('http://localhost:5000/api/i-need-to-fix-this')
             .then(response => {
@@ -16,7 +16,7 @@ const InformationContainer = ({ imageUrl, text, buttonText }) => {
     };
 
     return (
-        <div className="information-container">
+        <div className="information-container" id={targetId}>
             <div className="info-header-div">
                 <h1 className="info-header">Information Page</h1>
             </div>
