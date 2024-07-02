@@ -4,7 +4,7 @@ import '../styles/playercard.css';
 
 const playerSilhouette = null;
 
-const topPlayers = [
+const defaultPlayers = [
     { imgSrc: playerSilhouette, playerName: 'Goalkeeper 1' },
     { imgSrc: playerSilhouette, playerName: 'Goalkeeper 2' },
     { imgSrc: playerSilhouette, playerName: 'Defender 1' },
@@ -22,18 +22,17 @@ const topPlayers = [
     { imgSrc: playerSilhouette, playerName: 'Forward 3' }
 ];
 
-const PlayerCardContainer = ({ numGoalkeepers, numDefenders, numMidfielders, numForwards }) => {
-
-    const generatePlayerCards = (count, position, startIndex) => {
-        return topPlayers.slice(startIndex, startIndex + count).map((player, index) => (
-            <PlayerCard key={index} imgSrc={player.imgSrc} playerName={player.playerName} />
+const PlayerCardContainer = ({ players = [] }) => {
+    const generatePlayerCards = (count, startIndex) => {
+        return (players.length ? players.slice(startIndex, startIndex + count) : defaultPlayers.slice(startIndex, startIndex + count)).map((player, index) => (
+            <PlayerCard key={index} imgSrc={null} playerName={player[0] || player.playerName} />
         ));
     };
 
-    const goalkeepers = generatePlayerCards(numGoalkeepers, 'Goalkeeper', 0);
-    const defenders = generatePlayerCards(numDefenders, 'Defender', 2);
-    const midfielders = generatePlayerCards(numMidfielders, 'Midfielder', 7);
-    const forwards = generatePlayerCards(numForwards, 'Forward', 12);
+    const goalkeepers = generatePlayerCards(2, 13);
+    const defenders = generatePlayerCards(5, 0);
+    const midfielders = generatePlayerCards(5, 5);
+    const forwards = generatePlayerCards(3, 10);
 
     return (
         <div>
