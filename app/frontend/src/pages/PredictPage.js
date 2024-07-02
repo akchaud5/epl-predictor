@@ -4,26 +4,28 @@ import PredictContainer from "../components/PredictContainer";
 import PlayerCardContainer from '../components/PlayerCardContainer';
 
 const PredictPage = () => {
-    const [players, setPlayers] = useState([]);
+    const [topPlayers, setTopPlayers] = useState([]);
+    const [optimizedTeam, setOptimizedTeam] = useState([]);
+    const [headerText1, setHeaderText1] = useState('Best Players per Position');
+    const [headerText2, setHeaderText2] = useState('Best Team for Budget');
 
-    const numGoalkeepers = 2;
-    const numDefenders = 5;
-    const numMidfielders = 5;
-    const numForwards = 3;
-
-    const handlePredict = (fetchedPlayers) => {
-        setPlayers(fetchedPlayers);
+    const handlePredict = (fetchedData) => {
+        setTopPlayers(fetchedData.topPlayers);
+        setOptimizedTeam(fetchedData.optimizedTeam);
+        setHeaderText1('Predicted Best Players per Position');
+        setHeaderText2('Predicted Best Team for Budget');
     };
 
     return (
         <div>
             <PredictContainer onPredict={handlePredict} />
             <PlayerCardContainer
-                players={players}
-                numGoalkeepers={numGoalkeepers}
-                numDefenders={numDefenders}
-                numMidfielders={numMidfielders}
-                numForwards={numForwards}
+                players={topPlayers}
+                headerText={headerText1}
+            />
+            <PlayerCardContainer
+                players={optimizedTeam}
+                headerText={headerText2}
             />
         </div>
     );

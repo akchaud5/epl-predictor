@@ -22,7 +22,7 @@ const defaultPlayers = [
     { imgSrc: playerSilhouette, playerName: 'Forward 3' }
 ];
 
-const PlayerCardContainer = ({ players = [] }) => {
+const PlayerCardContainer = ({ players = [], headerText }) => {
     const generatePlayerCards = (count, startIndex) => {
         return (players.length ? players.slice(startIndex, startIndex + count) : defaultPlayers.slice(startIndex, startIndex + count)).map((player, index) => (
             <PlayerCard key={index} imgSrc={null} playerName={player[0] || player.playerName} />
@@ -37,7 +37,7 @@ const PlayerCardContainer = ({ players = [] }) => {
     return (
         <div>
             <div className="card-header-div">
-                <h1 className="card-header">Predicted Best Players per Position</h1>
+                <h1 className="card-header">{headerText}</h1>
             </div>
 
             <div className="card-container">

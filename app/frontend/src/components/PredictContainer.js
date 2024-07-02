@@ -6,7 +6,7 @@ const PredictContainer = ({ onPredict }) => {
     const handlePredict = () => {
         axios.post('http://localhost:5000/api/predict')
             .then(response => {
-                const fetchedPlayers = response.data.prediction;
+                const fetchedPlayers = response.data;
                 onPredict(fetchedPlayers);
             })
             .catch(error => {

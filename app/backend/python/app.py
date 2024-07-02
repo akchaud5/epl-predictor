@@ -11,10 +11,9 @@ def index():
 
 @app.route('/api/predict', methods=['POST'])
 def predict():
-    predictions, predictions_optimized = predicts()
-    print(predictions)
-    return jsonify({"prediction": predictions})
+    predictions, optimized_team = predicts()
 
+    return jsonify({"topPlayers": predictions, "optimizedTeam": optimized_team})
 
 @app.route('/api/predict-custom', methods=['POST'])
 def predict_custom():
