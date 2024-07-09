@@ -5,8 +5,6 @@ import '../styles/playercard.css';
 const playerSilhouette = null;
 
 const defaultPlayers = [
-    { imgSrc: playerSilhouette, playerName: 'Goalkeeper 1' },
-    { imgSrc: playerSilhouette, playerName: 'Goalkeeper 2' },
     { imgSrc: playerSilhouette, playerName: 'Defender 1' },
     { imgSrc: playerSilhouette, playerName: 'Defender 2' },
     { imgSrc: playerSilhouette, playerName: 'Defender 3' },
@@ -19,7 +17,9 @@ const defaultPlayers = [
     { imgSrc: playerSilhouette, playerName: 'Midfielder 5' },
     { imgSrc: playerSilhouette, playerName: 'Forward 1' },
     { imgSrc: playerSilhouette, playerName: 'Forward 2' },
-    { imgSrc: playerSilhouette, playerName: 'Forward 3' }
+    { imgSrc: playerSilhouette, playerName: 'Forward 3' },
+    { imgSrc: playerSilhouette, playerName: 'Goalkeeper 1' },
+    { imgSrc: playerSilhouette, playerName: 'Goalkeeper 2' }
 ];
 
 const PlayerCardContainer = ({ players = [], headerText }) => {

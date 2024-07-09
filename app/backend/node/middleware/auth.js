@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-    
+
     // Placeholder authentication logic to be created later
 
     const apiKey = req.headers['api-key'];
