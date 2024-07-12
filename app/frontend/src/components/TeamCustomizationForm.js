@@ -7,6 +7,7 @@ const TeamCustomizationForm = () => {
     const [numDefenders, setNumDefenders] = useState(4);
     const [numMidfielders, setNumMidfielders] = useState(4);
     const [numForwards, setNumForwards] = useState(2);
+    const [budget, setBudget] = useState(500);
 
     const handleInputChange = (setter) => (event) => {
         setter(Number(event.target.value));
@@ -18,6 +19,7 @@ const TeamCustomizationForm = () => {
         console.log(`Defenders: ${numDefenders}`);
         console.log(`Midfielders: ${numMidfielders}`);
         console.log(`Forwards: ${numForwards}`);
+        console.log(`Budget: ${budget}`);
     };
 
     return (
@@ -70,6 +72,18 @@ const TeamCustomizationForm = () => {
                         max="3"
                         value={numForwards}
                         onChange={handleInputChange(setNumForwards)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="budget">Budget (0-1000):</label>
+                    <input
+                        type="number"
+                        id="budget"
+                        name="budget"
+                        min="0"
+                        max="1000"
+                        value={budget}
+                        onChange={handleInputChange(setBudget)}
                     />
                 </div>
                 <button type="submit">Customize Team</button>

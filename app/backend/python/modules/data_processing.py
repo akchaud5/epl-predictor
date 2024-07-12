@@ -77,6 +77,8 @@ def predicts_custom(data):
     # Convert optimized players to list of dicts for easier template rendering
     optimized_players_list = optimized_players.to_dict(orient='records')
 
+    serialized_optimized_team = [[player['name'], player['predicted_points']] for player in optimized_players_list]
+
     return top_players, optimized_players_list
 
 

@@ -22,17 +22,17 @@ const defaultPlayers = [
     { imgSrc: playerSilhouette, playerName: 'Goalkeeper 2' }
 ];
 
-const PlayerCardContainer = ({ players = [], headerText }) => {
+const PlayerCardContainer = ({ players = [], headerText, numGoalkeepers = 2, numDefenders = 5, numMidfielders = 5, numForwards = 3 }) => {
     const generatePlayerCards = (count, startIndex) => {
         return (players.length ? players.slice(startIndex, startIndex + count) : defaultPlayers.slice(startIndex, startIndex + count)).map((player, index) => (
-            <PlayerCard key={index} imgSrc={null} playerName={player[0] || player.playerName} />
+            <PlayerCard key={index} imgSrc={null} playerName={player.playerName} />
         ));
     };
 
-    const goalkeepers = generatePlayerCards(2, 13);
-    const defenders = generatePlayerCards(5, 0);
-    const midfielders = generatePlayerCards(5, 5);
-    const forwards = generatePlayerCards(3, 10);
+    const goalkeepers = generatePlayerCards(numGoalkeepers, 13);
+    const defenders = generatePlayerCards(numDefenders, 0);
+    const midfielders = generatePlayerCards(numMidfielders, 5);
+    const forwards = generatePlayerCards(numForwards, 10);
 
     return (
         <div>

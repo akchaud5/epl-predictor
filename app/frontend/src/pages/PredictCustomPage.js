@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import CustomContainer from "../components/CustomContainer";
-import TeamCustomizationForm from "../components/TeamCustomization";
+import TeamCustomizationForm from "../components/TeamCustomizationForm";
 
 function PredictCustomPage() {
     const [customPrediction, setCustomPrediction] = useState(null);

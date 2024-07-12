@@ -18,8 +18,9 @@ def predict():
 @app.route('/api/predict-custom', methods=['POST'])
 def predict_custom():
     input_data = request.json.get('input')
-    prediction = f'Custom prediction for input "{input_data}"'
-    return jsonify({"prediction": prediction})
+    predictions, optimized_team = predicts_custom(input_data)
+
+    return jsonify({"topPlayers": predictions, "optimizedTeam": optimized_team})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
