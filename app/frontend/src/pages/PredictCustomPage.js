@@ -4,7 +4,7 @@ import CustomContainer from "../components/CustomContainer";
 import TeamCustomizationForm from "../components/TeamCustomizationForm";
 
 function PredictCustomPage() {
-    const [customPrediction, setCustomPrediction] = useState(null);
+    const [customPrediction, setCustomPrediction] = useState([]);
 
     const handleCustomPredict = (formData) => {
         const { numGoalkeepers, numDefenders, numMidfielders, numForwards, budget } = formData;
@@ -19,7 +19,7 @@ function PredictCustomPage() {
 
         axios.post('http://localhost:5001/api/predict-custom', { input: requestData })
             .then(response => {
-                setCustomPrediction(response.data.prediction);
+                setCustomPrediction(response.data.topPlayers);
             })
             .catch(error => {
                 console.error('There was an error making the custom prediction!', error);
@@ -32,8 +32,7 @@ function PredictCustomPage() {
             <div className="larger-header-div">
                 <h1 className="larger-header">Custom Predicted Best Players</h1>
             </div>
-            <TeamCustomizationForm onSubmit={handleCustomPredict}/>
-            {customPrediction && <p>Custom Prediction: {customPrediction}</p>}
+            <TeamCustomizationForm onSubmit={handleCustomPredict} customPlayers={customPrediction} />
         </div>
     );
 }

@@ -29,10 +29,10 @@ const PlayerCardContainer = ({ players = [], headerText, numGoalkeepers = 2, num
         ));
     };
 
-    const goalkeepers = generatePlayerCards(numGoalkeepers, 13);
+    const goalkeepers = generatePlayerCards(numGoalkeepers, numDefenders+numMidfielders+numForwards);
     const defenders = generatePlayerCards(numDefenders, 0);
-    const midfielders = generatePlayerCards(numMidfielders, 5);
-    const forwards = generatePlayerCards(numForwards, 10);
+    const midfielders = generatePlayerCards(numMidfielders, numDefenders);
+    const forwards = generatePlayerCards(numForwards, numDefenders+numMidfielders);
 
     return (
         <div>

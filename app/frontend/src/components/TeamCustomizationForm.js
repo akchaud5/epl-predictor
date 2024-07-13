@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import '../styles/teamcustomization.css';
 import PlayerCardContainer from './PlayerCardContainer';
 
-const TeamCustomizationForm = ({ onSubmit }) => {
+const TeamCustomizationForm = ({ onSubmit, customPlayers }) => {
     const [formData, setFormData] = useState({
         numGoalkeepers: 1,
         numDefenders: 4,
         numMidfielders: 4,
         numForwards: 2,
-        budget: 500,
+        budget: 800,
     });
 
     const handleInputChange = (event) => {
@@ -88,6 +88,7 @@ const TeamCustomizationForm = ({ onSubmit }) => {
                 <button type="submit">Customize Team</button>
             </form>
             <PlayerCardContainer
+                players={customPlayers}
                 numGoalkeepers={formData.numGoalkeepers}
                 numDefenders={formData.numDefenders}
                 numMidfielders={formData.numMidfielders}
