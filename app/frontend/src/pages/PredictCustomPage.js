@@ -5,14 +5,19 @@ import TeamCustomizationForm from "../components/TeamCustomizationForm";
 
 function PredictCustomPage() {
     const [customPrediction, setCustomPrediction] = useState(null);
-    const [customInputData, setCustomInputData] = useState('');
 
-    const handleCustomInputChange = (event) => {
-        setCustomInputData(event.target.value);
-    };
+    const handleCustomPredict = (formData) => {
+        const { numGoalkeepers, numDefenders, numMidfielders, numForwards, budget } = formData;
 
-    const handleCustomPredict = () => {
-        axios.post('http://localhost:5000/api/predict-custom', { input: customInputData })
+        const requestData = {
+            numGoalkeepers,
+            numDefenders,
+            numMidfielders,
+            numForwards,
+            budget,
+        };
+
+        axios.post('http://localhost:5001/api/predict-custom', { input: requestData })
             .then(response => {
                 setCustomPrediction(response.data.prediction);
             })
@@ -27,7 +32,8 @@ function PredictCustomPage() {
             <div className="larger-header-div">
                 <h1 className="larger-header">Custom Predicted Best Players</h1>
             </div>
-            <TeamCustomizationForm/>
+            <TeamCustomizationForm onSubmit={handleCustomPredict}/>
+            {customPrediction && <p>Custom Prediction: {customPrediction}</p>}
         </div>
     );
 }

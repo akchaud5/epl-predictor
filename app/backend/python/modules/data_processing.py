@@ -44,13 +44,17 @@ def predicts():
 # Function to start the training, visualization, and prediction process
 def predicts_custom(data):
 
-    # Parse the data here to gather counts for each type, players to exclude/include from the team, and custom budget
-
     # Reading in the CSV file into a Pandas Data Frame
     players_df = pd.read_csv(find_path())
 
     positions = ["DEF", "MID", "FWD", "GKP"]
     count = [5, 5, 3, 2]
+
+    # Parse the data here to gather counts for each type, players to exclude/include from the team, and custom budget
+    count[0] = data['numDefenders']
+    count[1] = data['numMidfielders']
+    count[2] = data['numForwards']
+    count[3] = data['numGoalkeepers']
 
     # Preprocess and separate the dataframe
     dataframes = preprocess(players_df, positions)
@@ -72,14 +76,14 @@ def predicts_custom(data):
 
     predicted_points_df = create_predicted_points_and_costs_dataframe(models, positions, players_df)
 
-    optimized_players = linear_optimization_specific(predicted_points_df, 1000, count[3], count[0], count[1], count[2], [])
+    optimized_players = linear_optimization_specific(predicted_points_df, data['budget'], count[3], count[0], count[1], count[2], [])
 
     # Convert optimized players to list of dicts for easier template rendering
     optimized_players_list = optimized_players.to_dict(orient='records')
 
     serialized_optimized_team = [[player['name'], player['predicted_points']] for player in optimized_players_list]
 
-    return top_players, optimized_players_list
+    return top_players, serialized_optimized_team
 
 
 # Function to find the file path

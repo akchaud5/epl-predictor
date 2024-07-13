@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import '../styles/teamcustomization.css';
 import PlayerCardContainer from './PlayerCardContainer';
 
-const TeamCustomizationForm = () => {
-    const [numGoalkeepers, setNumGoalkeepers] = useState(1);
-    const [numDefenders, setNumDefenders] = useState(4);
-    const [numMidfielders, setNumMidfielders] = useState(4);
-    const [numForwards, setNumForwards] = useState(2);
-    const [budget, setBudget] = useState(500);
+const TeamCustomizationForm = ({ onSubmit }) => {
+    const [formData, setFormData] = useState({
+        numGoalkeepers: 1,
+        numDefenders: 4,
+        numMidfielders: 4,
+        numForwards: 2,
+        budget: 500,
+    });
 
-    const handleInputChange = (setter) => (event) => {
-        setter(Number(event.target.value));
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: parseInt(value) });
     };
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        console.log(`Goalkeepers: ${numGoalkeepers}`);
-        console.log(`Defenders: ${numDefenders}`);
-        console.log(`Midfielders: ${numMidfielders}`);
-        console.log(`Forwards: ${numForwards}`);
-        console.log(`Budget: ${budget}`);
+        onSubmit(formData); // Pass formData to parent component (PredictCustomPage)
     };
 
     return (
@@ -31,11 +30,11 @@ const TeamCustomizationForm = () => {
                     <input
                         type="number"
                         id="goalkeepers"
-                        name="goalkeepers"
+                        name="numGoalkeepers"
                         min="0"
                         max="2"
-                        value={numGoalkeepers}
-                        onChange={handleInputChange(setNumGoalkeepers)}
+                        value={formData.numGoalkeepers}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div className="form-group">
@@ -43,11 +42,11 @@ const TeamCustomizationForm = () => {
                     <input
                         type="number"
                         id="defenders"
-                        name="defenders"
+                        name="numDefenders"
                         min="0"
                         max="5"
-                        value={numDefenders}
-                        onChange={handleInputChange(setNumDefenders)}
+                        value={formData.numDefenders}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div className="form-group">
@@ -55,11 +54,11 @@ const TeamCustomizationForm = () => {
                     <input
                         type="number"
                         id="midfielders"
-                        name="midfielders"
+                        name="numMidfielders"
                         min="0"
                         max="5"
-                        value={numMidfielders}
-                        onChange={handleInputChange(setNumMidfielders)}
+                        value={formData.numMidfielders}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div className="form-group">
@@ -67,11 +66,11 @@ const TeamCustomizationForm = () => {
                     <input
                         type="number"
                         id="forwards"
-                        name="forwards"
+                        name="numForwards"
                         min="0"
                         max="3"
-                        value={numForwards}
-                        onChange={handleInputChange(setNumForwards)}
+                        value={formData.numForwards}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div className="form-group">
@@ -82,17 +81,17 @@ const TeamCustomizationForm = () => {
                         name="budget"
                         min="0"
                         max="1000"
-                        value={budget}
-                        onChange={handleInputChange(setBudget)}
+                        value={formData.budget}
+                        onChange={handleInputChange}
                     />
                 </div>
                 <button type="submit">Customize Team</button>
             </form>
             <PlayerCardContainer
-                numGoalkeepers={numGoalkeepers}
-                numDefenders={numDefenders}
-                numMidfielders={numMidfielders}
-                numForwards={numForwards}
+                numGoalkeepers={formData.numGoalkeepers}
+                numDefenders={formData.numDefenders}
+                numMidfielders={formData.numMidfielders}
+                numForwards={formData.numForwards}
             />
         </div>
     );
