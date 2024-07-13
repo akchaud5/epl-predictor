@@ -12,63 +12,6 @@ body {
     background-color: #ececec;
 }
 
-.header-bar {
-    background-color: #fff;
-    color: #800080;
-    padding: 13px;
-    text-align: left;
-    border-bottom: 2px solid #000;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-    font-size: 20px;
-    top: 0;
-    opacity: 100%;
-    margin-bottom: 0px;
-}
-
-.description {
-    margin-top: 70px;
-    padding: 20px;
-    text-align: center;
-    font-size: 20px;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-}
-
-nav li {
-    display: inline-block;
-    margin-right: 15px;
-    position: relative;
-}
-
-nav a {
-    text-decoration: none;
-    color: #800080;
-    font-weight: bold;
-    padding: 8px 15px;
-    display: block;
-}
-
-.larger-header-div {
-    text-align: center;
-    padding: 40px;
-    background-color: #000000;
-}
-
-.larger-header {
-    font-size: 40px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
 /*
 .social-icons {
     display: flex;
