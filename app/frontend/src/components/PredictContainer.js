@@ -19,7 +19,7 @@ const PredictContainer = ({ onPredict }) => {
         <div className="prediction-container">
             <div className="prediction-container1">
                 <h1 className="prediction-text">Predictions</h1>
-                <p className="description">This page is related to generating the best overall Fantasy Premier League team.</p>
+                <p className="description">Here you can see the predictions for the best players at each position and the predictions for the best overall team for the FPL budget.</p>
                 <button id="make-predictions-btn" className="view-players-button" onClick={handlePredict}>Make Predictions</button>
             </div>
         </div>

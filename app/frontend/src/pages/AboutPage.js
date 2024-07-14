@@ -10,9 +10,6 @@ const AboutPage = () => {
                 buttonText="Read More"
                 targetId="target"
             />
-            <div className="larger-header-div">
-                <h1 className="larger-header">About Me</h1>
-            </div>
             <div id="target" className="about-container2">
                 <div className="about-picture-container">
                     <img className="profile-image" src="../assets/mattw.jpg" alt="Profile Picture"/>

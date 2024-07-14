@@ -29,9 +29,6 @@ function PredictCustomPage() {
     return (
         <div>
             <CustomContainer/>
-            <div className="larger-header-div">
-                <h1 className="larger-header">Custom Predicted Best Players</h1>
-            </div>
             <TeamCustomizationForm onSubmit={handleCustomPredict} customPlayers={customPrediction} />
         </div>
     );
