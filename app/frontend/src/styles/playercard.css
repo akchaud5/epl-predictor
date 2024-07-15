@@ -4,7 +4,7 @@
     justify-content: space-around;
     margin-top: 0px;
     background-color: black;
-    padding: 40px;
+    padding: 20px;
 }
 
 .card-header-div {
@@ -20,7 +20,7 @@
 }
 
 .card-description {
-    margin-top: 70px;
+    /*margin-top: 70px;*/
     padding: 20px;
     text-align: center;
     font-size: 20px;
@@ -33,7 +33,7 @@
 
 .photo-container {
     width: 200px;
-    margin-bottom: 40px;
+    /*margin-bottom: 40px;*/
     display: flex;
     flex-direction: column;
     align-items: center;
