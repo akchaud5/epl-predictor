@@ -40,7 +40,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 20px;
+    padding: 80px;
+    padding-left: 130px;
 }
 
 .about-container2 div {
@@ -49,10 +50,11 @@
 
 .about-picture-container2 {
     background-color: inherit;
-    padding: 100px 0px 100px 150px;
-    max-width: 55%;
-    margin: 0 auto;
-    color: #fff;
+    padding: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 130px;
 }
 
 .about-text-container2 {
@@ -63,6 +65,7 @@
     margin: 0 auto;
     color: #fff;
     margin-right: 100px;
+    padding-left: 130px;
 }
 
 .about-header {
@@ -75,4 +78,10 @@
     text-align: center;
     font-size: 20px;
     margin-bottom: 50px;
+}
+
+.profile-image {
+    width: 50%;
+    height: auto;
+    align-self: center;
 }

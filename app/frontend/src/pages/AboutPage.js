@@ -1,5 +1,6 @@
 import React from 'react';
 import TextContainer from "../components/TextContainer";
+import '../styles/about.css';
 
 const AboutPage = () => {
     return (
@@ -12,7 +13,7 @@ const AboutPage = () => {
             />
             <div id="target" className="about-container2">
                 <div className="about-picture-container">
-                    <img className="profile-image" src="../assets/mattw.jpg" alt="Profile Picture"/>
+                    <img className="profile-image" src="/assets/mattw.jpg" alt="Profile Picture"/>
                 </div>
                 <div className="about-text-container2">
                     <h1 className="about-header">Overview</h1>
