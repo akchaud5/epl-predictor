@@ -35,7 +35,7 @@ const PlayerCardContainer = ({ players = [], headerText, numGoalkeepers = 2, num
     const forwards = generatePlayerCards(numForwards, numDefenders+numMidfielders);
 
     return (
-        <div>
+        <div className="player-card-container">
             <div className="card-header-div">
                 <h1 className="card-header">{headerText}</h1>
             </div>

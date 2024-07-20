@@ -26,12 +26,12 @@
 }
 
 .home-button:hover {
-    background-color: #6a006a; /* Darker shade of purple on hover */
+    background-color: #6a006a;
 }
 
 .home-container {
     margin-top: 0;
-    /*background: url('https://cdn.pixabay.com/photo/2018/05/15/23/02/football-stadium-3404535_1280.jpg') center/cover no-repeat;*/
+    background: url('https://cdn.pixabay.com/photo/2018/05/15/23/02/football-stadium-3404535_1280.jpg') center/cover no-repeat;
     background-color: black;
     height: 100vh;
     display: flex;
@@ -43,7 +43,6 @@
 }
 
 .home-container1 {
-    background-color: inherit;
     padding: 100px;
     text-align: center;
     max-width: 55%;

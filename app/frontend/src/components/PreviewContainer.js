@@ -4,7 +4,7 @@ import '../styles/preview.css';
 
 const PreviewContainer = () => {
     return (
-        <div className="preview-page">
+        <div id="target-preview" className="preview-page">
             <PreviewCard
                 title="Predict"
                 imageSrc="/path/to/my/predict-image.jpg"

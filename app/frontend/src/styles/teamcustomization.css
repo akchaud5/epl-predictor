@@ -6,9 +6,10 @@
 }
 
 .team-customization-header {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     color: #ffffff;
+    padding-bottom: 50px;
 }
 
 .team-customization-form {
