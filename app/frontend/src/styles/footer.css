@@ -1,0 +1,23 @@
+.footer-container {
+    background-color: #800080;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.footer-title {
+    font-size: 24px;
+}
+
+.footer-copyright,
+.footer-message {
+    font-size: 16px;
+    margin: 0;
+    padding: 0 50px 0 50px;
+}

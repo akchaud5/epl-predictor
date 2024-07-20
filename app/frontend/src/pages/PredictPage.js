@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PredictContainer from "../components/PredictContainer";
 import PlayerCardContainer from '../components/PlayerCardContainer';
+import FooterContainer from "../components/FooterContainer";
 
 const PredictPage = () => {
     const [topPlayers, setTopPlayers] = useState([]);
@@ -27,6 +28,7 @@ const PredictPage = () => {
                 players={optimizedTeam}
                 headerText={headerText2}
             />
+            <FooterContainer/>
         </div>
     );
 };

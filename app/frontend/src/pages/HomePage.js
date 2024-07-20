@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { fetchData } from '../services/api';
 import HomeContainer from '../components/HomeContainer';
+import PreviewContainer from "../components/PreviewContainer";
+import FooterContainer from "../components/FooterContainer";
 
 
 function HomePage() {
@@ -18,6 +20,8 @@ function HomePage() {
     return (
         <div>
             <HomeContainer/>
+            <PreviewContainer/>
+            <FooterContainer/>
         </div>
     );
 }

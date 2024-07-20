@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import CustomContainer from "../components/CustomContainer";
 import TeamCustomizationForm from "../components/TeamCustomizationForm";
+import {Form} from "react-router-dom";
+import FooterContainer from "../components/FooterContainer";
 
 function PredictCustomPage() {
     const [customPrediction, setCustomPrediction] = useState([]);
@@ -30,6 +32,7 @@ function PredictCustomPage() {
         <div>
             <CustomContainer/>
             <TeamCustomizationForm onSubmit={handleCustomPredict} customPlayers={customPrediction} />
+            <FooterContainer/>
         </div>
     );
 }

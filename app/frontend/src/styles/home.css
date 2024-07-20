@@ -31,7 +31,8 @@
 
 .home-container {
     margin-top: 0;
-    background: url('https://cdn.pixabay.com/photo/2018/05/15/23/02/football-stadium-3404535_1280.jpg') center/cover no-repeat;
+    /*background: url('https://cdn.pixabay.com/photo/2018/05/15/23/02/football-stadium-3404535_1280.jpg') center/cover no-repeat;*/
+    background-color: black;
     height: 100vh;
     display: flex;
     flex-direction: column;

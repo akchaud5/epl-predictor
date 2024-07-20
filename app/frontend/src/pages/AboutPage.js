@@ -1,6 +1,7 @@
 import React from 'react';
 import TextContainer from "../components/TextContainer";
 import '../styles/about.css';
+import FooterContainer from "../components/FooterContainer";
 
 const AboutPage = () => {
     return (
@@ -26,6 +27,7 @@ const AboutPage = () => {
                     </p>
                 </div>
             </div>
+            <FooterContainer/>
         </div>
     );
 }

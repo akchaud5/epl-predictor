@@ -11,7 +11,7 @@ function Navbar() {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/predict">Predict</Link></li>
                     <li><Link to="/predict-custom">Predict Custom</Link></li>
-                    <li><Link to="/info">Information</Link></li>
+                    {/*<li><Link to="/info">Information</Link></li>*/}
                     <li><Link to="/about">About</Link></li>
                 </ul>
             </nav>

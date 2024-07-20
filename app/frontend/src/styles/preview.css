@@ -1,0 +1,61 @@
+.preview-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    height: 400px;
+    box-sizing: border-box;
+    color: #000;
+}
+
+.preview-card h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #800080;
+    text-align: center;
+}
+
+.preview-image {
+    width: 100%;
+    height: 60%;
+    margin-bottom: 10px;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 60%;
+    background-color: grey;
+    margin-bottom: 10px;
+}
+
+.preview-button {
+    background-color: #800080;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: auto;
+    cursor: pointer;
+    text-align: center;
+}
+
+.preview-button:hover {
+    background-color: #600060;
+}
+
+.preview-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    min-height: 100vh;
+}
