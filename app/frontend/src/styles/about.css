@@ -40,7 +40,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 50px;
+    padding: 90px;
 }
 
 .about-container2 div {
@@ -79,7 +79,7 @@
 }
 
 .profile-image {
-    width: 70%;
+    width: 60%;
     height: auto;
     align-self: center;
 }
