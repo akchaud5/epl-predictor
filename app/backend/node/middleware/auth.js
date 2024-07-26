@@ -1,12 +1,24 @@
+const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../utils/auth');
+
 module.exports = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
 
-    // Placeholder authentication logic to be created later
+    if (!authHeader) {
+        return res.status(401).json({ error: 'Authorization header missing' });
+    }
 
-    const apiKey = req.headers['api-key'];
+    const token = authHeader.split(' ')[1];
 
-    if (apiKey === process.env.API_KEY) {
+    if (!token) {
+        return res.status(401).json({ error: 'Token missing' });
+    }
+
+    try {
+        const decoded = verifyToken(token);
+        req.user = decoded;
         next();
-    } else {
-        res.status(403).json({ error: 'Unauthorized' });
+    } catch (error) {
+        return res.status(403).json({ error: 'Invalid token' });
     }
 };
