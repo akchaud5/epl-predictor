@@ -8,6 +8,6 @@ module.exports = {
     JWT_SECRET: process.env.JWT_SECRET || 'jwt_secret',
     LOG_LEVEL: process.env.LOG_LEVEL || 'info',
     RATE_LIMIT_WINDOW: parseInt(process.env.RATE_LIMIT_WINDOW) || 15 * 60 * 1000,
-    RATE_LIMIT_MAX: parseInt(process.env.RATE_LIMIT_MAX) || 100, 
+    RATE_LIMIT_MAX: parseInt(process.env.RATE_LIMIT_MAX) || 100,
     CORS_ORIGIN: process.env.CORS_ORIGIN || '*'
 };

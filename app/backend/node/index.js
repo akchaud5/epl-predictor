@@ -19,15 +19,13 @@ app.use(express.json());
 app.use(helmet());
 app.use(rateLimiter);
 app.use(logger);
+app.use(errorHandler);
 
 app.use('/api/auth', authRoutes);
 
 // Protect routes
 app.use('/api/predict', auth, predictRoutes);
 app.use('/api/custom-predict', auth, customPredictRoutes);
-
-// Error handler
-app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
