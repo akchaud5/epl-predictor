@@ -1,13 +1,18 @@
-require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
+
+const configPath = path.join(__dirname, 'config.yaml');
+
+const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
 
 module.exports = {
-    PORT: process.env.APP_PORT || 5000,
-    SERVER_URL: process.env.SERVER_URL || 'http://localhost:5001',
-    DB_URL: process.env.DB_URL || 'mongodb://localhost:27017/dbname',
-    ENVIRONMENT: process.env.NODE_ENV || 'development',
-    JWT_SECRET: process.env.JWT_SECRET || 'jwt_secret',
-    LOG_LEVEL: process.env.LOG_LEVEL || 'info',
-    RATE_LIMIT_WINDOW: parseInt(process.env.RATE_LIMIT_WINDOW) || 15 * 60 * 1000,
-    RATE_LIMIT_MAX: parseInt(process.env.RATE_LIMIT_MAX) || 100,
-    CORS_ORIGIN: process.env.CORS_ORIGIN || '*'
+    PORT: process.env.APP_PORT || config.server.port,
+    SERVER_URL: process.env.SERVER_URL || config.server.url,
+    DB_URL: process.env.DB_URL || config.database.url,
+    JWT_SECRET: process.env.JWT_SECRET || config.auth.jwtSecret,
+    LOG_LEVEL: process.env.LOG_LEVEL || config.logging.level,
+    RATE_LIMIT_WINDOW: parseInt(process.env.RATE_LIMIT_WINDOW) || config.rateLimiter.windowMs,
+    RATE_LIMIT_MAX: parseInt(process.env.RATE_LIMIT_MAX) || config.rateLimiter.max,
+    CORS_ORIGIN: process.env.CORS_ORIGIN || config.cors.origin,
 };

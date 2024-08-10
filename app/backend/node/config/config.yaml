@@ -1,0 +1,19 @@
+server:
+  port: 5000
+  url: "http://localhost:5001"
+
+database:
+  url: "mongodb://localhost:27017/yourdbname"
+
+auth:
+  jwtSecret: "your_jwt_secret"
+
+logging:
+  level: "info"
+
+rateLimiter:
+  windowMs: 900000 
+  max: 100
+
+cors:
+  origin: "*"
