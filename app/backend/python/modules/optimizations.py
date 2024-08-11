@@ -1,15 +1,27 @@
+import os
+import yaml
 import pandas as pd
 from pulp import LpProblem, LpVariable, lpSum, LpMaximize
 
+# Load configuration from config.yaml
+def load_config():
+    # Assuming the 'modules' directory is inside the project root
+    config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
+
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    return config
+
 # Function to set the parameters for the linear optimization
 def linear_optimization(df):
+    config = load_config()
 
     # Set the maximum budget and position constraints
-    max_budget = 1000
-    max_keepers = 2
-    max_defenders = 5
-    max_midfielders = 5
-    max_forwards = 3
+    max_budget = config['optimization']['max_budget']
+    max_keepers = config['optimization']['max_players']['keepers']
+    max_defenders = config['optimization']['max_players']['defenders']
+    max_midfielders = config['optimization']['max_players']['midfielders']
+    max_forwards = config['optimization']['max_players']['forwards']
 
     # Call the optimize_team function
     selected_team = optimize_team(df, max_budget, max_keepers, max_defenders, max_midfielders, max_forwards)
@@ -49,7 +61,6 @@ def optimize_team(df, max_cost, max_keepers, max_defenders, max_midfielders, max
 
 # Function to set the parameters for the linear optimization
 def linear_optimization_specific(df, max_budget, max_keepers, max_defenders, max_midfielders, max_forwards, invalid_players):
-
     # Create a copy of the DataFrame
     df_copy = df.copy()
 

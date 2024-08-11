@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const predictRoutes = require('./routes/predict-routes');
@@ -20,12 +21,11 @@ app.use(helmet());
 app.use(rateLimiter);
 app.use(logger);
 app.use(errorHandler);
+app.use(morgan('dev'));
 
 app.use('/api/auth', authRoutes);
-
-// Protect routes
-app.use('/api/predict', auth, predictRoutes);
-app.use('/api/custom-predict', auth, customPredictRoutes);
+app.use('/api/predict', predictRoutes);
+app.use('/api/custom-predict', customPredictRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

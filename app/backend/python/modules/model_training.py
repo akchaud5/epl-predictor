@@ -1,4 +1,5 @@
 import os
+import yaml
 import pandas as pd
 import xgboost as xgb
 from xgboost import XGBRegressor, plot_importance
@@ -11,12 +12,18 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
-from sklearn.model_selection import train_test_split
 
+# Load configuration from config.yaml
+def load_config():
+    # Assuming the 'modules' directory is inside the project root
+    config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
+
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    return config
 
 # Function to train all 4 models for each position
 def train_models(dataframes, positions):
-
     trained_models = []
 
     for i in range(len(dataframes)):
@@ -28,17 +35,8 @@ def train_models(dataframes, positions):
 
 # Function to train XGBoost model with the predefined hyperparameters
 def train_xgboost_model(X, y, position):
-
-    # Define hyperparameters
-    hyperparams = {
-        'learning_rate': 0.1,
-        'max_depth': 3,
-        'subsample': 0.8,
-        'colsample_bytree': 0.8,
-        'n_estimators': 100,
-        'alpha': 0.1,
-        'lambda': 0.1
-    }
+    config = load_config()
+    hyperparams = config['model_training']['xgboost']
 
     # Create XGBoost regressor with predefined hyperparameters
     xgb_model = XGBRegressor(**hyperparams)
@@ -52,7 +50,6 @@ def train_xgboost_model(X, y, position):
 
 # Function to evaluate XGBoost model and print MSE
 def evaluate_model(model, X_test, y_test, position):
-
     # Get the predictions
     y_pred = model.predict(X_test)
 
@@ -62,7 +59,6 @@ def evaluate_model(model, X_test, y_test, position):
 
 # Function to generate the visualizations
 def visualize(models, output_dir, positions):
-
     # Ensuring there is a directory for the visualizations
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -86,48 +82,6 @@ def visualize(models, output_dir, positions):
 
     return visualizations
 
-# Function to perform hyperparameter tuning with cross-validation
-def tune_hyperparameters(X, y):
-
-    # Define the parameter grid
-    param_grid = {
-    'learning_rate': [0.05, 0.1],
-    'max_depth': [3, 4],
-    'subsample': [0.8, 1.0],
-    'colsample_bytree': [0.8, 1.0],
-    'n_estimators': [100, 200]
-    }
-
-    # Create XGBoost regressor
-    xgb_model = xgb.XGBRegressor()
-
-    # Perform grid search with cross-validation
-    kfold = KFold(n_splits=5, shuffle=True, random_state=42)
-    grid_search = GridSearchCV(estimator=xgb_model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=kfold)
-    grid_search.fit(X, y)
-
-    # Get the best parameters
-    best_params = grid_search.best_params_
-    print("Best Hyperparameters:", best_params)
-
-    return best_params
-
-# Function to train XGBoost model with the best hyperparameters
-def train_xgboost_model_best(X, y, position):
-
-    # Perform hyperparameter tuning
-    best_params = tune_hyperparameters(X, y)
-
-    # Create XGBoost regressor with best hyperparameters
-    xgb_model = XGBRegressor(**best_params)
-
-    # Train the model
-    xgb_model.fit(X, y)
-
-    print(f"XGBoost Model trained for {position} position.")
-
-    return xgb_model
-
 # DNN Class
 class DenseNet(nn.Module):
     def __init__(self, input_size):
@@ -145,7 +99,6 @@ class DenseNet(nn.Module):
 
 # Function that trains the neural network
 def train_nn_model(training_data, input_size, n_epochs=10):
-
     model = DenseNet(input_size)
     loss_function = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001)
@@ -163,7 +116,6 @@ def train_nn_model(training_data, input_size, n_epochs=10):
 
 # Function that loads the data correctly for the NN
 def load_nn_data(df, target_column='total_points', test_size=0.2, batch_size=32):
-
     X = df.drop(target_column, axis=1).values
     y = df[target_column].values
 
@@ -182,20 +134,17 @@ def load_nn_data(df, target_column='total_points', test_size=0.2, batch_size=32)
 
 # Function that loads the data for each position
 def load_data_for_position(df, position, target_column='total_points', test_size=0.2, batch_size=32):
-
     position_df = df[df['position'] == position]
     return load_nn_data(position_df, target_column, test_size, batch_size)
 
 # Function that calls train model for each position
 def train_model_for_position(training_data, input_size, position, n_epochs=10):
-
     print(f"Training model for position: {position}")
     model = train_nn_model(training_data, input_size, n_epochs)
     return model
 
 # Function that trains each model based on position
 def train_and_save_models_by_position(df, positions=['GKP', 'MID', 'FWD', 'DEF']):
-
     models = []
     for position in positions:
         training_data, _ = load_data_for_position(df, position)

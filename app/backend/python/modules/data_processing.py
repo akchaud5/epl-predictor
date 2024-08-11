@@ -1,13 +1,25 @@
 import os
+import yaml
 import pandas as pd
 from .model_training import train_models, evaluate_model, visualize
 from .optimizations import linear_optimization, linear_optimization_specific
 
+# Load configuration from config.yaml
+def load_config():
+    # Assuming the 'modules' directory is inside the project root
+    config_path = os.path.join(os.path.dirname(__file__), '..', 'config.yaml')
+
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    return config
+
 # Function to start the training, visualization, and prediction process
 def predicts():
+    config = load_config()
+    csv_file_path = os.path.join(os.path.dirname(__file__), '..', config['data']['csv_file'])
 
     # Reading in the CSV file into a Pandas Data Frame
-    players_df = pd.read_csv(find_path())
+    players_df = pd.read_csv(csv_file_path)
 
     positions = ["DEF", "MID", "FWD", "GKP"]
     count = [5, 5, 3, 2]
@@ -20,10 +32,14 @@ def predicts():
 
     # Evaluate each of the 4 models
     for i in range(len(models)):
-        evaluate_model(models[i], dataframes[i].select_dtypes(include=['int']).drop(columns=['total_points']),
-                       dataframes[i]['total_points'], positions[i])
+        evaluate_model(
+            models[i],
+            dataframes[i].select_dtypes(include=['int']).drop(columns=['total_points']),
+            dataframes[i]['total_points'],
+            positions[i]
+        )
 
-    visualize(models, "visualizations", positions)
+    visualize(models, config['visualization']['output_dir'], positions)
 
     top_players = []
 
@@ -43,9 +59,11 @@ def predicts():
 
 # Function to start the training, visualization, and prediction process
 def predicts_custom(data):
+    config = load_config()
+    csv_file_path = os.path.join(os.path.dirname(__file__), '..', config['data']['csv_file'])
 
     # Reading in the CSV file into a Pandas Data Frame
-    players_df = pd.read_csv(find_path())
+    players_df = pd.read_csv(csv_file_path)
 
     positions = ["DEF", "MID", "FWD", "GKP"]
     count = [5, 5, 3, 2]
@@ -64,10 +82,14 @@ def predicts_custom(data):
 
     # Evaluate each of the 4 models
     for i in range(len(models)):
-        evaluate_model(models[i], dataframes[i].select_dtypes(include=['int']).drop(columns=['total_points']),
-                       dataframes[i]['total_points'], positions[i])
+        evaluate_model(
+            models[i],
+            dataframes[i].select_dtypes(include=['int']).drop(columns=['total_points']),
+            dataframes[i]['total_points'],
+            positions[i]
+        )
 
-    visualize(models, "visualizations", positions)
+    visualize(models, config['visualization']['output_dir'], positions)
 
     top_players = []
 
@@ -76,7 +98,9 @@ def predicts_custom(data):
 
     predicted_points_df = create_predicted_points_and_costs_dataframe(models, positions, players_df)
 
-    optimized_players = linear_optimization_specific(predicted_points_df, data['budget'], count[3], count[0], count[1], count[2], [])
+    optimized_players = linear_optimization_specific(
+        predicted_points_df, data['budget'], count[3], count[0], count[1], count[2], []
+    )
 
     # Convert optimized players to list of dicts for easier template rendering
     optimized_players_list = optimized_players.to_dict(orient='records')
@@ -85,25 +109,8 @@ def predicts_custom(data):
 
     return top_players, serialized_optimized_team
 
-
-# Function to find the file path
-def find_path():
-
-    # Get the current directory of the Flask application
-    current_dir = os.path.dirname(__file__)
-
-    # Navigate to the parent directory
-    parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-
-    # Define the path to the CSV file
-    csv_file_path = os.path.join(parent_dir, 'datasets', 'players.csv')
-
-    return csv_file_path
-
-
 # Function to preprocess the data within the Pandas Data Frame
 def preprocess(players_df, positions):
-
     split_dataframes = []
 
     # Split the dataset based on values in the 'Position' column
@@ -119,7 +126,6 @@ def preprocess(players_df, positions):
 
 # Function to get the top players
 def get_top_players(model, dataframe, position, n):
-
     # Get the predictions
     X = dataframe.select_dtypes(include=['int']).drop(columns=['total_points'])
     predictions = model.predict(X)
@@ -140,7 +146,6 @@ def get_top_players(model, dataframe, position, n):
 
 # Function to get predicted points for players in each position
 def get_predicted_points_for_position(model, dataframe):
-
     # Assuming 'dataframe' is the input dataframe containing player information
     X = dataframe.select_dtypes(include=['int']).drop(columns=['total_points'])
     predictions = model.predict(X)
@@ -156,13 +161,11 @@ def get_predicted_points_for_position(model, dataframe):
 
 # Function to create a DataFrame with predicted points and costs for all players
 def create_predicted_points_and_costs_dataframe(models, positions, players_df):
-
     # Create an empty list to store DataFrames for each position
     dfs = []
 
     # Iterate through each position and corresponding model
     for i in range(len(models)):
-
         # Filter players_df for current position
         position_df = players_df[players_df['position'] == positions[i]]
 
@@ -179,4 +182,3 @@ def create_predicted_points_and_costs_dataframe(models, positions, players_df):
     predicted_points_and_costs_df = pd.concat(dfs, ignore_index=True)
 
     return predicted_points_and_costs_df
-
