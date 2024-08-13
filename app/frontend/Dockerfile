@@ -2,10 +2,12 @@ FROM node:14
 
 WORKDIR /app
 
-COPY frontend/package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 
-COPY frontend/ .
+COPY . .
+RUN npm run build
+RUN npm install -g serve
 
+CMD ["serve", "-s", "build", "-l", "3000"]
 EXPOSE 3000
-CMD ["npm", "start"]
