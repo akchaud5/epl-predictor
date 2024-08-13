@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  build-and-test-react:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -17,8 +16,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Build React Frontend
-        run: |
-          docker build -t react-frontend ./app/frontend
+        run: docker build -t react-frontend ./app/frontend
 
       - name: Test Run React Frontend
         run: |
@@ -27,9 +25,16 @@ jobs:
           # Perform tests here, e.g., curl localhost:3000
           docker stop react-app
 
+  build-and-test-node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Build Node.js Backend
-        run: |
-          docker build -t node-backend ./app/backend/node
+        run: docker build -t node-backend ./app/backend/node
 
       - name: Test Run Node.js Backend
         run: |
@@ -38,9 +43,16 @@ jobs:
           # Perform tests here, e.g., curl localhost:5000/api
           docker stop node-app
 
+  build-and-test-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Build Python Backend
-        run: |
-          docker build -t python-backend ./app/backend/python
+        run: docker build -t python-backend ./app/backend/python
 
       - name: Test Run Python Backend
         run: |
