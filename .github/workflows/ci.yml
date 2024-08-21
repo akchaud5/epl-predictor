@@ -18,11 +18,11 @@ jobs:
       - name: Build React Frontend
         run: docker build -t react-frontend ./app/frontend
 
-      - name: Test Run React Frontend
+      - name: Run and Test React Frontend
         run: |
           docker run -d --name react-app -p 3000:3000 react-frontend
           sleep 10 
-          # Perform tests here, e.g., curl localhost:3000
+          curl --fail http://localhost:3000 || exit 1
           docker stop react-app
 
   build-and-test-node:
@@ -36,11 +36,20 @@ jobs:
       - name: Build Node.js Backend
         run: docker build -t node-backend ./app/backend/node
 
-      - name: Test Run Node.js Backend
+      - name: Run and Test Node.js Backend
         run: |
           docker run -d --name node-app -p 5000:5000 node-backend
-          sleep 5  
-          # Perform tests here, e.g., curl localhost:5000/api
+          timeout=30  
+          while ! curl --fail http://localhost:5000/api/predict/test; do
+            sleep 1
+            timeout=$((timeout-1))
+            if [ "$timeout" -le 0 ]; then
+              echo "Node.js backend failed to start in time."
+              docker logs node-app
+              docker stop node-app
+              exit 1
+            fi
+          done
           docker stop node-app
 
   build-and-test-python:
@@ -54,9 +63,18 @@ jobs:
       - name: Build Python Backend
         run: docker build -t python-backend ./app/backend/python
 
-      - name: Test Run Python Backend
+      - name: Run and Test Python Backend
         run: |
           docker run -d --name python-app -p 5001:5001 python-backend
-          sleep 5 
-          # Perform tests here, e.g., curl localhost:5001/api
+          timeout=30  
+          while ! curl --fail http://localhost:5001/; do
+            sleep 1
+            timeout=$((timeout-1))
+            if [ "$timeout" -le 0 ]; then
+              echo "Python backend failed to start in time."
+              docker logs python-app
+              docker stop python-app
+              exit 1
+            fi
+          done
           docker stop python-app
