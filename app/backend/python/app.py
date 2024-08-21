@@ -34,4 +34,4 @@ def predict_custom():
     return jsonify({"topPlayers": predictions, "optimizedTeam": optimized_team})
 
 if __name__ == '__main__':
-    app.run(debug=config['flask']['debug'], port=config['flask']['port'])
+    app.run(host=config['flask']['host'], debug=config['flask']['debug'], port=config['flask']['port'])

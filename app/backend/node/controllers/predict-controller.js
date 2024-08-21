@@ -9,3 +9,9 @@ exports.predict = async (req, res) => {
         res.status(500).json({ error: 'Error calling Python API' });
     }
 };
+
+exports.test = async (req, res) => {
+
+    res.status(200).send("Test successful");
+
+};

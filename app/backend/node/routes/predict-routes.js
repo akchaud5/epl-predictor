@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const predictController = require('../controllers/predict-controller');
+const customPredictController = require('../controllers/custom-predict-controller');
 
-router.post('/predict', predictController.predict);
+router.post('/', customPredictController.predictCustom);
+router.get('/test', customPredictController.test);
 
 module.exports = router;
