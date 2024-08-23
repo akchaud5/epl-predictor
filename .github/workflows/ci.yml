@@ -54,27 +54,30 @@ jobs:
 
   build-and-test-python:
     runs-on: ubuntu-latest
+    services:
+      python:
+        image: docker://python:3.8-slim
+        ports:
+          - 5001:5001
+        options: --entrypoint tail
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build Python Backend
+      - name: Build Python Docker Container
         run: docker build -t python-backend ./app/backend/python
 
-      - name: Run and Test Python Backend
-        run: |
-          docker run -d --name python-app -p 5001:5001 python-backend
-          timeout=30  
-          while ! curl --fail http://localhost:5001/; do
-            sleep 1
-            timeout=$((timeout-1))
-            if [ "$timeout" -le 0 ]; then
-              echo "Python backend failed to start in time."
-              docker logs python-app
-              docker stop python-app
-              exit 1
-            fi
-          done
-          docker stop python-app
+      - name: Start Python Container
+        run: docker run -d --name python-app -p 5001:5001 python-backend
+
+      - name: Install Test Dependencies
+        run: docker exec python-app pip install pytest
+
+      - name: Copy Tests to Container
+        run: docker cp ./app/backend/python/tests python-app:/app/tests
+
+      - name: Run Tests in Python Container
+        run: docker exec python-app pytest /app/tests
+
+      - name: Stop Python Container
+        run: docker stop python-app
