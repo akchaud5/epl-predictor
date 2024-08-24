@@ -6,7 +6,8 @@ import HomePage from './pages/HomePage';
 import PredictPage from './pages/PredictPage';
 import PredictCustomPage from './pages/PredictCustomPage';
 import AboutPage from './pages/AboutPage';
-import InformationPage from './pages/InformationPage'
+import InformationPage from './pages/InformationPage';
+import LoginPage from './pages/LoginPage';
 import './styles/styles.css';
 
 
@@ -21,6 +22,8 @@ function App() {
                     <Route path="/predict-custom" element={<PredictCustomPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/info" element={<InformationPage/>} />
+                    <Route path="/login" element={<LoginPage/>} />
+
                 </Routes>
             </div>
         </Router>
