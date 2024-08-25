@@ -8,6 +8,7 @@ import PredictCustomPage from './pages/PredictCustomPage';
 import AboutPage from './pages/AboutPage';
 import InformationPage from './pages/InformationPage';
 import LoginPage from './pages/LoginPage';
+import SignUpPage from "./pages/SignUpPage";
 import './styles/styles.css';
 
 
@@ -23,7 +24,7 @@ function App() {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/info" element={<InformationPage/>} />
                     <Route path="/login" element={<LoginPage/>} />
-
+                    <Route path="/signup" element={<SignUpPage/>} />
                 </Routes>
             </div>
         </Router>
