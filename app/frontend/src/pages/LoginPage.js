@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
 import Navbar from "../components/Navbar";
+import '../styles/login.css'
 
 const LoginPage = () => {
     const handleLoginSuccess = (userData) => {
@@ -9,9 +10,8 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
-            <Navbar/>
-            <LoginForm onLoginSuccess={handleLoginSuccess} />
+        <div className="login-page">
+            <LoginForm />
         </div>
     );
 };
