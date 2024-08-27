@@ -3,10 +3,10 @@ server:
   url: "http://0.0.0.0:5001"
 
 database:
-  url: "mongodb://localhost:27017/yourdbname"
+  url: "mongodb://localhost:27017/dbname"
 
 auth:
-  jwtSecret: "your_jwt_secret"
+  jwtSecret: "jwt_secret"
 
 logging:
   level: "info"
