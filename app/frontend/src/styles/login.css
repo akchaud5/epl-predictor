@@ -23,7 +23,7 @@
     border-radius: 8px;
 }
 
-h1 {
+.login-container h1 {
     color: #800080;
     margin-bottom: 20px;
 }
@@ -38,7 +38,7 @@ h1 {
     margin-bottom: 15px;
 }
 
-label {
+.login-container label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
