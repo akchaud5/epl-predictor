@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { generateToken } = require('../utils/auth');
+const { generateToken } = require('../utils/token');
 const router = express.Router();
 const db = require('../config/db');
 

@@ -5,9 +5,6 @@ server:
 database:
   url: "mongodb://localhost:27017/dbname"
 
-auth:
-  jwtSecret: "jwt_secret"
-
 logging:
   level: "info"
 
