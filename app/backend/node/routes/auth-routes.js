@@ -21,10 +21,7 @@ router.post('/signup', async (req, res) => {
         const insertUser = 'INSERT INTO users (username, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING user_id';
         const newUser = await db.query(insertUser, [username, email, hashedPassword, 'admin']);
 
-        // Generate a token
-        //const token = generateToken({ id: newUser.rows[0].id, username });
-
-        res.status(201).json({ token });
+        res.status(201).json({ });
     } catch (err) {
         console.error('Signup error:', err);
         res.status(500).json({ error: 'Internal server error' });
@@ -34,20 +31,30 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
-    // Find user
-    const user = users.find(user => user.username === username);
-    if (!user) {
-        return res.status(400).json({ error: 'Invalid credentials' });
-    }
+    try {
+        // Find user in the database
+        const query = 'SELECT * FROM users WHERE username = $1';
+        const { rows } = await db.query(query, [username]);
+        const user = rows[0];
 
-    // Compare password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(400).json({ error: 'Invalid credentials' });
-    }
+        if (!user) {
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
 
-    const token = generateToken(user);
-    res.status(200).json({ token });
+        // Compare the hashed passwords
+        const isMatch = await bcrypt.compare(password, user.password_hash);
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
+
+        // Generate a token
+        const token = generateToken({ user_id: user.user_id, username: user.username, role: user.role });
+        res.status(200).json({ token });
+
+    } catch (err) {
+        console.error('Login error:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 module.exports = router;

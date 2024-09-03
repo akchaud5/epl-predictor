@@ -20,8 +20,11 @@ const LoginForm = ({ onLoginSuccess }) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
-            localStorage.setItem('token', response.data.token);
-            onLoginSuccess(response.data);
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+                onLoginSuccess(response.data);
+                navigate('/');
+            }
         } catch (err) {
             setError(err.response?.data?.error || 'Login failed. Please try again.');
         }
