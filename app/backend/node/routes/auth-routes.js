@@ -5,7 +5,7 @@ const router = express.Router();
 const db = require('../config/db');
 
 router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     try {
         // Check if the user already exists in the database
@@ -17,12 +17,12 @@ router.post('/signup', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert the new user into the database
-        const insertUser = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id';
-        const newUser = await db.query(insertUser, [username, hashedPassword]);
+        // Insert the new user into the database with 'admin' as the default role
+        const insertUser = 'INSERT INTO users (username, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING user_id';
+        const newUser = await db.query(insertUser, [username, email, hashedPassword, 'admin']);
 
         // Generate a token
-        const token = generateToken({ id: newUser.rows[0].id, username });
+        //const token = generateToken({ id: newUser.rows[0].id, username });
 
         res.status(201).json({ token });
     } catch (err) {
