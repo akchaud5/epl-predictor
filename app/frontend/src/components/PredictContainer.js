@@ -4,7 +4,11 @@ import axios from 'axios';
 
 const PredictContainer = ({ onPredict }) => {
     const handlePredict = () => {
-        axios.post('http://localhost:5000/api/predict')
+        axios.post('http://localhost:5000/api/predict', {}, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(response => {
                 const fetchedPlayers = response.data;
                 onPredict(fetchedPlayers);
@@ -13,6 +17,7 @@ const PredictContainer = ({ onPredict }) => {
                 console.error('There was an error making the prediction!', error);
                 alert('There was an error making the prediction. Please try again.');
             });
+
     };
 
     return (

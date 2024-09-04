@@ -3,6 +3,7 @@ import TextContainer from "../components/TextContainer";
 import FooterContainer from "../components/FooterContainer";
 import AboutContainer from '../components/AboutContainer';
 import '../styles/about.css';
+import Navbar from "../components/Navbar";
 
 const AboutPage = () => {
 
@@ -10,6 +11,7 @@ const AboutPage = () => {
     const education = "My Computer Science education has spanned the last 3 school years, including classes such as Data Structures and Algorithms, Distributed Software Development, Foundations of Machine Learning, and Operating Systems. I have also been a Undergraduate Teaching Assistant for both Intro to Theoretical Computer Science and Principles of Programming Languages.";
     return (
         <div>
+            <Navbar />
             <TextContainer
                 headerText="About"
                 paragraphText="In case you were wondering who made this web app!"

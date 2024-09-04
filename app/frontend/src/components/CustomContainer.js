@@ -11,13 +11,18 @@ const CustomContainer = () => {
     };
 
     const handleCustomPredict = () => {
-        axios.post('http://localhost:5000/api/predict-custom', { input: customInputData })
+        axios.post('http://localhost:5000/api/predict-custom', { input: customInputData }, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(response => {
                 setCustomPrediction(response.data.prediction);
             })
             .catch(error => {
                 console.error('There was an error making the custom prediction!', error);
             });
+
     };
 
     return (

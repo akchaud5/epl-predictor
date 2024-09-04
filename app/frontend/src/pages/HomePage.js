@@ -3,6 +3,7 @@ import { fetchData } from '../services/api';
 import HomeContainer from '../components/HomeContainer';
 import PreviewContainer from "../components/PreviewContainer";
 import FooterContainer from "../components/FooterContainer";
+import Navbar from "../components/Navbar";
 
 
 function HomePage() {
@@ -19,6 +20,7 @@ function HomePage() {
 
     return (
         <div>
+            <Navbar />
             <HomeContainer/>
             <PreviewContainer/>
             <FooterContainer/>

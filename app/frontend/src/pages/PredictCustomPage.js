@@ -4,6 +4,7 @@ import CustomContainer from "../components/CustomContainer";
 import TeamCustomizationForm from "../components/TeamCustomizationForm";
 import {Form} from "react-router-dom";
 import FooterContainer from "../components/FooterContainer";
+import Navbar from "../components/Navbar";
 
 function PredictCustomPage() {
     const [customPrediction, setCustomPrediction] = useState([]);
@@ -30,6 +31,7 @@ function PredictCustomPage() {
 
     return (
         <div>
+            <Navbar />
             <CustomContainer/>
             <TeamCustomizationForm onSubmit={handleCustomPredict} customPlayers={customPrediction} />
             <FooterContainer/>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import PredictContainer from "../components/PredictContainer";
 import PlayerCardContainer from '../components/PlayerCardContainer';
 import FooterContainer from "../components/FooterContainer";
+import Navbar from "../components/Navbar";
 
 const PredictPage = () => {
     const [topPlayers, setTopPlayers] = useState([]);
@@ -19,6 +20,7 @@ const PredictPage = () => {
 
     return (
         <div>
+            <Navbar />
             <PredictContainer onPredict={handlePredict} />
             <PlayerCardContainer
                 players={topPlayers}
