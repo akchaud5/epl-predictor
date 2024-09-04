@@ -2,9 +2,6 @@ server:
   port: 5000
   url: "http://0.0.0.0:5001"
 
-database:
-  url: "mongodb://localhost:27017/dbname"
-
 logging:
   level: "info"
 
