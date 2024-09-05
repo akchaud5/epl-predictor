@@ -1,0 +1,14 @@
+version: '3'
+services:
+  react:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+  node:
+    build: ./backend/node
+    ports:
+      - "5000:5000"
+  python:
+    build: ./backend/python
+    ports:
+      - "5001:5001"
