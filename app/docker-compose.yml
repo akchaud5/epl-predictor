@@ -1,13 +1,27 @@
 version: '3'
 services:
+
   react:
     build: ./frontend
     ports:
       - "3000:3000"
+
   node:
     build: ./backend/node
     ports:
       - "5000:5000"
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: postgres
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend/node:/usr/src/app
+    working_dir: /usr/src/app
+    command: sh -c "node scripts/db-schema-setup.js && npm start"
+
   python:
     build: ./backend/python
     ports:

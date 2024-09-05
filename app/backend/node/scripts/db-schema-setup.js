@@ -1,5 +1,7 @@
 const db = require('../config/db');
 
+console.log("Running database schema setup...");
+
 async function createSchema() {
     try {
         await db.query('BEGIN');
