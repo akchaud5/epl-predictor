@@ -51,7 +51,7 @@ describe('Auth Routes', () => {
 
     afterAll(async () => {
         // Clean up the database after all tests in this suite
-        await db.query('DROP TABLE IF EXISTS users');
+        await db.query('DELETE FROM users');
         await db.end();
     });
 
