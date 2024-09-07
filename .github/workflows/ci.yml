@@ -27,18 +27,52 @@ jobs:
 
   build-and-test-node:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: ${{ vars.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_DB: ${{ vars.DB_NAME }}
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: Install Node.js Dependencies
+        run: npm install --prefix ./app/backend/node
+
+      - name: Inspect PostgreSQL Logs
+        run: docker logs $(docker ps -q -f ancestor=postgres:14)
+
+      - name: Run Authentication Tests
+        env:
+          DB_USER: ${{ vars.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ vars.DB_NAME }}
+          DB_HOST: localhost
+          DB_PORT: 5432
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: |
+          npm test --prefix ./app/backend/node
+
       - name: Build Node.js Backend
         run: docker build -t node-backend ./app/backend/node
 
       - name: Run and Test Node.js Backend
+        env:
+          DB_USER: ${{ vars.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ vars.DB_NAME }}
+          DB_HOST: localhost
+          DB_PORT: 5432
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
-          docker run -d --name node-app -p 5000:5000 node-backend
+          docker run -d --name node-app -p 5000:5000 --network="host" node-backend
           timeout=30  
           while ! curl --fail http://localhost:5000/api/predict/test; do
             sleep 1
