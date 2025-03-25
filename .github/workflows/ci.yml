@@ -31,11 +31,18 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: ${{ vars.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          POSTGRES_DB: ${{ vars.DB_NAME }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: epl_prediction
         ports:
           - 5432:5432
+        # Health check ensures PostgreSQL is ready before tests run
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          --name=postgres_container
 
     steps:
       - uses: actions/checkout@v2
@@ -46,26 +53,40 @@ jobs:
       - name: Install Node.js Dependencies
         run: npm install --prefix ./app/backend/node
 
-      - name: Inspect PostgreSQL Logs
+      - name: Inspect Docker Environment
         run: |
-          # Get the PostgreSQL container ID safely
+          echo "=== All running containers ==="
+          docker ps
+          
+          echo "=== Looking for PostgreSQL containers ==="
+          # Try different ways to find the PostgreSQL container
           POSTGRES_CONTAINER_ID=$(docker ps -q -f ancestor=postgres:14 | head -1)
+          
           if [ -z "$POSTGRES_CONTAINER_ID" ]; then
-            echo "No PostgreSQL container found!"
-            docker ps
-            exit 1
+            # Try by image name containing postgres
+            POSTGRES_CONTAINER_ID=$(docker ps -q -f "image=postgres" | head -1)
           fi
-          echo "Using PostgreSQL container: $POSTGRES_CONTAINER_ID"
-          docker logs $POSTGRES_CONTAINER_ID
+          
+          if [ -z "$POSTGRES_CONTAINER_ID" ]; then
+            # Try by container name containing postgres
+            POSTGRES_CONTAINER_ID=$(docker ps --format "{{.ID}}" -f "name=postgres" | head -1)
+          fi
+          
+          if [ -z "$POSTGRES_CONTAINER_ID" ]; then
+            echo "No PostgreSQL container found, but continuing build..."
+          else
+            echo "Using PostgreSQL container: $POSTGRES_CONTAINER_ID"
+            docker logs $POSTGRES_CONTAINER_ID || echo "Could not get logs, but continuing..."
+          fi
 
       - name: Run Authentication Tests
         env:
-          DB_USER: ${{ vars.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ vars.DB_NAME }}
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: epl_prediction
           DB_HOST: localhost
           DB_PORT: 5432
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_SECRET: test_secret
         run: |
           npm test --prefix ./app/backend/node
 
@@ -74,12 +95,12 @@ jobs:
 
       - name: Run and Test Node.js Backend
         env:
-          DB_USER: ${{ vars.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ vars.DB_NAME }}
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: epl_prediction
           DB_HOST: localhost
           DB_PORT: 5432
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_SECRET: test_secret
         run: |
           docker run -d --name node-app -p 5000:5000 --network="host" node-backend
           timeout=30  
