@@ -47,7 +47,16 @@ jobs:
         run: npm install --prefix ./app/backend/node
 
       - name: Inspect PostgreSQL Logs
-        run: docker logs $(docker ps -q -f ancestor=postgres:14)
+        run: |
+          # Get the PostgreSQL container ID safely
+          POSTGRES_CONTAINER_ID=$(docker ps -q -f ancestor=postgres:14 | head -1)
+          if [ -z "$POSTGRES_CONTAINER_ID" ]; then
+            echo "No PostgreSQL container found!"
+            docker ps
+            exit 1
+          fi
+          echo "Using PostgreSQL container: $POSTGRES_CONTAINER_ID"
+          docker logs $POSTGRES_CONTAINER_ID
 
       - name: Run Authentication Tests
         env:
