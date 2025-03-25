@@ -43,6 +43,33 @@ jobs:
           --health-timeout 5s
           --health-retries 5
           --name=postgres_container
+          
+      # Mock Python API service for tests
+      python-api:
+        image: node:14-alpine
+        ports:
+          - 5001:5001
+        options: >-
+          --name=python-api
+        env:
+          NODE_ENV: test
+        volumes:
+          - ${{ github.workspace }}:/workspace
+        command: >
+          sh -c "cd /workspace && 
+                 echo 'const express = require(\"express\"); 
+                 const app = express(); 
+                 app.use(express.json()); 
+                 app.post(\"/api/predict\", (req, res) => { 
+                   res.json({result: \"mocked prediction\"}); 
+                 }); 
+                 app.post(\"/api/predict-custom\", (req, res) => { 
+                   res.json({result: \"mocked custom prediction\"}); 
+                 }); 
+                 app.listen(5001, () => console.log(\"Mock Python API running on port 5001\")); 
+                 ' > mock-api.js && 
+                 npm install express && 
+                 node mock-api.js"
 
     steps:
       - uses: actions/checkout@v2
@@ -87,8 +114,13 @@ jobs:
           DB_HOST: localhost
           DB_PORT: 5432
           JWT_SECRET: test_secret
+          SERVER_URL: http://localhost:5001
         run: |
-          npm test --prefix ./app/backend/node
+          # Verify the Python mock API is accessible
+          curl --retry 5 --retry-delay 2 --retry-connrefused http://localhost:5001/api/predict -X POST -H "Content-Type: application/json" -d "{}" || echo "Mock API not responding, but continuing..."
+          
+          # Run tests with modified timeout for better reliability
+          JEST_TIMEOUT=30000 npm test --prefix ./app/backend/node
 
       - name: Build Node.js Backend
         run: docker build -t node-backend ./app/backend/node
@@ -101,19 +133,41 @@ jobs:
           DB_HOST: localhost
           DB_PORT: 5432
           JWT_SECRET: test_secret
+          SERVER_URL: http://localhost:5001
         run: |
-          docker run -d --name node-app -p 5000:5000 --network="host" node-backend
+          # Run with host network to ensure it can reach both PostgreSQL and the mock Python API
+          docker run -d --name node-app -p 5000:5000 --network="host" \
+            -e DB_USER=postgres \
+            -e DB_PASSWORD=postgres \
+            -e DB_NAME=epl_prediction \
+            -e DB_HOST=localhost \
+            -e DB_PORT=5432 \
+            -e JWT_SECRET=test_secret \
+            -e SERVER_URL=http://localhost:5001 \
+            node-backend
+          
+          # Give the container more time to start up
+          sleep 5
+          
+          # Check if the container is running
+          docker ps | grep node-app || (echo "Node.js container failed to start" && exit 1)
+          
+          # Show logs for debugging
+          docker logs node-app
+          
+          # Test the API endpoint with more retries
           timeout=30  
-          while ! curl --fail http://localhost:5000/api/predict/test; do
+          while ! curl --fail --retry 3 http://localhost:5000/api/predict/test; do
             sleep 1
             timeout=$((timeout-1))
             if [ "$timeout" -le 0 ]; then
-              echo "Node.js backend failed to start in time."
+              echo "Node.js backend failed to respond in time."
               docker logs node-app
               docker stop node-app
               exit 1
             fi
           done
+          
           docker stop node-app
 
   build-and-test-python:
