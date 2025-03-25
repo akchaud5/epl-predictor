@@ -106,7 +106,7 @@ jobs:
             docker logs $POSTGRES_CONTAINER_ID || echo "Could not get logs, but continuing..."
           fi
 
-      - name: Run Authentication Tests
+      - name: Run Node.js Tests
         env:
           DB_USER: postgres
           DB_PASSWORD: postgres
@@ -114,13 +114,20 @@ jobs:
           DB_HOST: localhost
           DB_PORT: 5432
           JWT_SECRET: test_secret
-          SERVER_URL: http://localhost:5001
+          # Use mocked SERVER_URL
+          SERVER_URL: http://mock-api-for-tests
+          NODE_ENV: test
+          DEBUG: "jest,jest-worker,jest-jasmine2"
         run: |
-          # Verify the Python mock API is accessible
-          curl --retry 5 --retry-delay 2 --retry-connrefused http://localhost:5001/api/predict -X POST -H "Content-Type: application/json" -d "{}" || echo "Mock API not responding, but continuing..."
+          # Skip actual API calls - tests will use mocks from jest.setup.js
+          echo "=== Running Node.js tests with mocks ==="
+          cd ./app/backend/node
           
-          # Run tests with modified timeout for better reliability
-          JEST_TIMEOUT=30000 npm test --prefix ./app/backend/node
+          # Install any missing dependencies
+          npm install --no-save jest-environment-node
+          
+          # Run tests with explicit node options for debugging
+          node --unhandled-rejections=strict node_modules/.bin/jest --verbose --runInBand --forceExit --detectOpenHandles
 
       - name: Build Node.js Backend
         run: docker build -t node-backend ./app/backend/node
